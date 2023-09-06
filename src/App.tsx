@@ -33,10 +33,34 @@ const App: React.FC = () => {
 
   return (
     <main className="App">
+      <header className="starry">
+        <div id="nav-logo">
+          <div id="nav-logo__upper">Swan Queen</div>
+          <div id="nav-logo__lower">
+            Supernova <span>8</span>
+          </div>
+          <div id="nav-logo__sub">Catch A Falling Star</div>
+        </div>
+      </header>
       {blurbCount && randomIndex > -1 ? (
         <div>
-          <article>{blurbs[randomIndex]?.text}</article>
-          <button onClick={getRandomIndex}>{`Get another blurb!`}</button>
+          <article className="card">
+            <header>Coming {blurbs[randomIndex].date}</header>
+            <div className="contents">
+              <section>
+                <header>
+                  <span>a fic for readers who love...</span>
+                </header>
+                <div className="blurb">{blurbs[randomIndex].blurb}</div>
+              </section>
+            </div>
+            <footer>
+              Stay tuned for this and many more{" "}
+              <a href="https://sqsupernova.tumblr.com/">#SwanQueen</a> fics.
+              Reveals start Sept 11th!
+            </footer>
+          </article>
+          <button onClick={getRandomIndex}>Get another blurb</button>
         </div>
       ) : (
         <span>Loading...</span>
