@@ -1,55 +1,49 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import "./App.css";
-import data from "./blurbs.json";
+import blurbData from "./blurbs.json";
 
-type Blurb = { blurb: string; date: string; ranking: string; text: string };
+const blurbs: { blurb: string; date: string; ranking: string; text: string }[] =
+  blurbData;
+const blurbCount = blurbs.length;
+
+function getRandomIndex(fallbackNumber: number): number {
+  if (blurbCount > 0) {
+    return Math.floor(Math.random() * blurbCount);
+  } else {
+    return fallbackNumber;
+  }
+}
 
 const App: React.FC = () => {
-  const [blurbs, setBlurbs] = useState<Blurb[]>([]);
-  const [randomIndex, setRandomIndex] = useState(-1);
-  const blurbCount = blurbs.length;
+  const [randomIndex, setRandomIndex] = React.useState(-1);
 
-  const getRandomIndex = useCallback(() => {
-    setRandomIndex((prevIndex) => {
-      if (blurbCount > 0) {
-        return Math.floor(Math.random() * blurbCount);
-      } else {
-        return prevIndex;
-      }
-    });
-  }, [blurbCount]);
+  function handleSetRandomIndex(): void {
+    setRandomIndex((prev) => getRandomIndex(prev));
+  }
 
-  useEffect(() => {
-    if (data) {
-      setBlurbs(data);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (blurbCount && randomIndex === -1) {
-      getRandomIndex();
-    }
-  }, [blurbCount, randomIndex, getRandomIndex]);
+  if (blurbCount && randomIndex === -1) {
+    handleSetRandomIndex();
+  }
 
   return (
-    <main className="App">
+    <main>
       <header className="starry">
         <div id="nav-logo">
           <div id="nav-logo__upper">Swan Queen</div>
           <div id="nav-logo__lower">
-            Supernova <span>8</span>
+            Supernova <span>9</span>
           </div>
-          <div id="nav-logo__sub">Catch A Falling Star</div>
+          <div id="nav-logo__sub">Thank Your Lucky Stars</div>
         </div>
       </header>
       {blurbCount && randomIndex > -1 ? (
-        <div>
+        <>
           <article className="card">
             <header>Coming {blurbs[randomIndex].date}</header>
             <div className="contents">
               <section>
                 <header>
-                  <span>a fic for readers who love...</span>
+                  <div>a fic for readers who love...</div>
                 </header>
                 <div className="blurb">{blurbs[randomIndex].blurb}</div>
               </section>
@@ -57,11 +51,13 @@ const App: React.FC = () => {
             <footer>
               Stay tuned for this and many more{" "}
               <a href="https://sqsupernova.tumblr.com/">#SwanQueen</a> fics.
-              Reveals start Sept 11th!
+              Reveals start Sept 9th!
             </footer>
           </article>
-          <button onClick={getRandomIndex}>Get another blurb</button>
-        </div>
+          <div>
+            <button onClick={handleSetRandomIndex}>Get another blurb</button>
+          </div>
+        </>
       ) : (
         <span>Loading...</span>
       )}
