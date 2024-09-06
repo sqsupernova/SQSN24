@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/SQSN24/static/css/main.74d19683.css",
+    "main.js": "/SQSN24/static/js/main.7a03e3c9.js",
+    "index.html": "/SQSN24/index.html",
+    "main.74d19683.css.map": "/SQSN24/static/css/main.74d19683.css.map",
+    "main.7a03e3c9.js.map": "/SQSN24/static/js/main.7a03e3c9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.74d19683.css",
+    "static/js/main.7a03e3c9.js"
+  ]
+}
